@@ -61,4 +61,25 @@ public class MinHeap {
 
         return deleteValue;
     }
+
+    // 실행을 위한 main 메서드
+    public static void main(String[] args) {
+        MinHeap minHeap = new MinHeap();
+
+        System.out.println("=== 힙에 데이터 삽입 ===");
+        System.out.println("10, 5, 20, 3, 15 삽입 중...");
+        minHeap.push(10);
+        minHeap.push(5);
+        minHeap.push(20);
+        minHeap.push(3);
+        minHeap.push(15);
+
+        System.out.println("\n=== 힙에서 데이터 삭제 (최솟값부터 나와야 함) ===");
+        System.out.println("pop: " + minHeap.pop()); // 3 출력되어야 함
+        System.out.println("pop: " + minHeap.pop()); // 5 출력되어야 함
+        System.out.println("pop: " + minHeap.pop()); // 10 출력되어야 함
+        System.out.println("pop: " + minHeap.pop()); // 15 출력되어야 함
+        System.out.println("pop: " + minHeap.pop()); // 20 출력되어야 함
+        System.out.println("pop: " + minHeap.pop()); // 빈 힙이라 0 출력되어야 함
+    }
 }
