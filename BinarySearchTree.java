@@ -57,7 +57,7 @@ public class BinarySearchTree {
     private Node addNode(Node currNode, Node newNode) {
         if (currNode == null) {
             currNode = newNode;
-            return newNode;
+            return newNode; // 빈자리에 새 거 넣기
         }
         
         // 부모보다 작은 값이면 왼쪽으로
@@ -70,7 +70,7 @@ public class BinarySearchTree {
         else {
             System.out.println("중복된 값입니다.");
         }
-        return currNode;
+        return currNode; // 빈자리 아니면 기존 노드 그대로 넣기
     }
 
     // 검색
