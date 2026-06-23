@@ -184,7 +184,7 @@ public class BinarySearchTree {
         // 그 노드가 삭제할 노드와 가장 가까운 값이기 때문
         // 여기선 1)로 구현하겠음
         // 그러나! 교환할 노드에게 오른쪽 자식이 없는 것은 확실하지만 왼쪽 자식이 있을 수도 있음
-        // 그러므로 왼쪽 자식과 교환할 노드의 바로 전 노드와 연결해주어야 함
+        // 그러므로 왼쪽 자식과 교환할 노드의 바로 전 노드(부모)와 연결해주어야 함
         else {
             // 3-1. 왼쪽 자식 중에서 가장 큰(가장 오른쪽)에 있는 노드 찾기
             Node exchangeNode = currNode.left;
@@ -197,7 +197,7 @@ public class BinarySearchTree {
             // 3-2. 삭제할 자리에 교환할 노드의 값 넣기
             currNode.data = exchangeNode.data;
 
-            // 3-3. 교환할 노드의 왼쪽 자식을 교환할 전 노드의 오른쪽 자식에 연결해주기
+            // 3-3. 교환할 노드의 왼쪽 자식을 교환할 전 노드(교환할 노드의 부모)의 오른쪽 자식에 연결해주기
             // 3-3-1) 삭제할 노드의 바로 왼쪽 노드가 교환할 노드임
             if (exchangePrevNode == currNode)
                 exchangePrevNode.left = exchangeNode.left;
@@ -207,6 +207,61 @@ public class BinarySearchTree {
         }
 
         return value;
+    }
+
+        // 삭제 (2. 재귀로 구현)
+    public int removeRecursive (int value) {
+        if (!find(value)) {
+            System.out.println("존재하지 않는 값입니다");
+            return -1;
+        }
+
+        root = removeNode(root, value);
+
+        return value;
+    }
+
+    private Node removeNode(Node currNode, int value) {
+        // 못 찾음
+        if (currNode == null) {
+            return null;
+        }
+
+        // 찾음
+        if (currNode.data == value) {
+            // 1. 삭제할 노드의 자식이 없거나 하나임
+            if (currNode.left == null)
+                // 삭제할 노드의 오른쪽 자식을 삭제 노드의 부모에 연결해주기(삭제 노드는 연결 끊김)
+                return currNode.right;
+            if (currNode.right == null)
+                // 삭제할 노드의 왼쪽 자식을 삭제 노드의 부모에 연결해주기(삭제 노드는 연결 끊김)
+                return currNode.left;
+
+            // 2. 삭제할 노드의 자식이 둘임
+            // 2-1. 먼저 교환할 노드 즉, 왼쪽 자식 중에서 가장 큰(가장 오른쪽)에 있는 노드 찾기
+            Node exchangeNode = currNode.left;
+            while (exchangeNode.right != null) {
+                exchangeNode = exchangeNode.right;
+            }
+
+            // 2-2. 삭제할 자리에 교환할 노드의 값 넣기
+            currNode.data = exchangeNode.data;
+
+            //2-3. 교환한 노드 삭제하기
+            currNode.left = removeNode(currNode.left, exchangeNode.data);
+
+            return currNode; // 교환 작업을 완료한 현재 노드를 부모 노드와 연결
+        }
+        
+        // 부모보다 작은 값이면 왼쪽으로
+        if (currNode.data > value)
+            currNode.left = removeNode(currNode.left, value);
+        
+        // 부모보다 큰 값이면 오른쪽으로
+        else
+            currNode.right = removeNode(currNode.right, value);
+
+        return currNode; // 기존 노드를 부모 노드와 연결
     }
 
     // 중위 순회
@@ -254,19 +309,23 @@ public class BinarySearchTree {
         bst.printTree();
 
         System.out.println("\n=== 5-1. 말단 노드(20) 삭제 ===");
-        bst.remove(20);
+        // bst.remove(20);
+        bst.removeRecursive(20);
         bst.printTree();
 
         System.out.println("\n=== 5-2. 자식이 하나인 노드(30) 삭제 ===");
-        bst.remove(30);
+        // bst.remove(30);
+        bst.removeRecursive(30);
         bst.printTree();
 
         System.out.println("\n=== 5-3. 자식이 둘인데 왼쪽 자식 하나만 존재하는 노드(70) 삭제 ===");
-        bst.remove(70);
+        // bst.remove(70);
+        bst.removeRecursive(70);
         bst.printTree();
 
         System.out.println("\n=== 5-4. 루트 노드(50) 삭제면서 자식이 둘인데 그 사이에 노드가 있는 경우 ===");
-        bst.remove(50);
+        // bst.remove(50);
+        bst.removeRecursive(50);
         bst.printTree();
     }
 
