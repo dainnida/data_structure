@@ -50,11 +50,11 @@ public class BinarySearchTree {
             }
         }
         // 2. 재귀로 구현 (첫 노드라도 root = newNode로 잘 됨)
-        // root = addNode(root, newNode);
+        // root = addRecursive(root, newNode);
     }
 
     // 2. 재귀로 삽입 구현
-    private Node addNode(Node currNode, Node newNode) {
+    private Node addRecursive(Node currNode, Node newNode) {
         if (currNode == null) {
             currNode = newNode;
             return newNode; // 빈자리에 새 거 넣기
@@ -62,10 +62,10 @@ public class BinarySearchTree {
         
         // 부모보다 작은 값이면 왼쪽으로
         if (currNode.data > newNode.data)
-            currNode.left = addNode(currNode.left, newNode);
+            currNode.left = addRecursive(currNode.left, newNode);
         // 부모보다 큰 값이면 오른쪽으로
         else if (currNode.data < newNode.data)
-            currNode.right = addNode(currNode.right, newNode);
+            currNode.right = addRecursive(currNode.right, newNode);
         // 같은 경우에는 중복 불가
         else {
             System.out.println("중복된 값입니다.");
@@ -92,10 +92,10 @@ public class BinarySearchTree {
         return false;
 
         // 2. 재귀로 구현
-        // return findNode(root, value);
+        // return findRecursive(root, value);
     }
 
-    private boolean findNode(Node currNode, int value) {
+    private boolean findRecursive(Node currNode, int value) {
         // 못 찾음
         if (currNode == null)
             return false;
@@ -106,11 +106,11 @@ public class BinarySearchTree {
         
         // 부모보다 작은 값이면 왼쪽으로
         if (currNode.data > value)
-            return findNode(currNode.left, value);
+            return findRecursive(currNode.left, value);
         
         // 부모보다 큰 값이면 오른쪽으로
         else
-            return findNode(currNode.right, value);
+            return findRecursive(currNode.right, value);
     }
 
     // 삭제
@@ -209,7 +209,7 @@ public class BinarySearchTree {
         return value;
     }
 
-        // 삭제 (2. 재귀로 구현)
+    // 삭제 (2. 재귀로 구현)
     public int removeRecursive (int value) {
         if (!find(value)) {
             System.out.println("존재하지 않는 값입니다");
