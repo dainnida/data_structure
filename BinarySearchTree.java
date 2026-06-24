@@ -269,12 +269,12 @@ public class BinarySearchTree {
         printNode(root);
     }
 
-    private void printNode(Node currNode) {
+    private void printRecursive(Node currNode) {
         if (currNode == null)
             return;
-        printNode(currNode.left);
+        printRecursive(currNode.left);
         System.out.print(currNode.data + " ");
-        printNode(currNode.right);
+        printRecursive(currNode.right);
     }
 
     // 실행을 위한 main 메서드
