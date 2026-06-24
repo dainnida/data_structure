@@ -224,7 +224,7 @@ public class BinarySearchTree {
     private Node removeNode(Node currNode, int value) {
         // 못 찾음
         if (currNode == null) {
-            return null;
+            return null; // 빈자리엔 그대로 비어야 함
         }
 
         // 찾음
@@ -270,11 +270,11 @@ public class BinarySearchTree {
     }
 
     private void printRecursive(Node currNode) {
-        if (currNode == null)
+        if (currNode == null) // 끝
             return;
-        printRecursive(currNode.left);
-        System.out.print(currNode.data + " ");
-        printRecursive(currNode.right);
+        printRecursive(currNode.left); // 왼쪽 자식 다 출력
+        System.out.print(currNode.data + " "); // 부모 출력
+        printRecursive(currNode.right); // 오른쪽 자식 다 출력
     }
 
     // 실행을 위한 main 메서드
